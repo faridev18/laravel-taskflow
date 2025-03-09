@@ -8,7 +8,7 @@
     @vite('resources/js/app.js')
 </head>
 <body>
-    <h1>Home eu </h1>
-    <h2>{{$data}}</h2>
+    <h1>Home </h1>
+   
 </body>
 </html>

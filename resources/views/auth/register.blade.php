@@ -48,6 +48,10 @@
                 <input type="password" id="repeat-password" name="repeat-password">
             </div>
             <button type="submit">S'inscrire</button>
+
+            <div>
+                <a href="{{ route('login') }}">Déjà inscrit ? Connectez-vous</a>
+            </div>
         </form>
     </div>
 
