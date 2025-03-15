@@ -19,5 +19,12 @@ Route::get("/logout",[AuthController::class,"logout"])->name("logout");
 
 Route::get("/dashboard",[AuthController::class,"dashboard"])->name('dashboard');
 Route::get("/products",[HomeController::class,"products"])->name('products');
+
+
+Route::get("/categories",[HomeController::class,"categories"])->name('categories');
+Route::get("/addcategory",[HomeController::class,"addcategory"])->name('addcategory');
+Route::post("/savecategorie", [HomeController::class,'savecategorie'])->name('savecategorie');
+Route::get("/categorie/{id}/delete", [HomeController::class,'deletecategorie'])->name('deletecategorie');
+
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 Route::get('/admin', [AdminController::class, 'index'])->name('admin');

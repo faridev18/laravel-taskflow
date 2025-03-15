@@ -16,8 +16,15 @@
         </li>
 
         <li>
+            <a href="{{ route('categories') }}" class="flex items-center p-2 hover:bg-blue-700 rounded">
+                <i class="fa-solid fa-list"></i>
+                <span class="nav-text ml-3">Catégories</span>
+            </a>
+        </li>
+
+        <li>
             <a href="{{ route('products') }}" class="flex items-center p-2 hover:bg-blue-700 rounded">
-                <i class="fas fa-"></i>
+                <i class="fa-solid fa-utensils"></i>
                 <span class="nav-text ml-3">Products</span>
             </a>
         </li>
