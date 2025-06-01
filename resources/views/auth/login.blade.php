@@ -36,6 +36,7 @@
           
             <button type="submit">Se connecter</button>
         </form>
+        <p>Vous n'avez pas de compte, <a href="/register">S'inscrire</a></p>
     </div>
 
 </body>

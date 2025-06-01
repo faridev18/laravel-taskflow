@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Categorie extends Model
+class Workspace extends Model
 {
     //
     protected $fillable = [
-        'name',
-        'image',
+        "name",
+        "owner_id",
+        "color"
     ];
 }

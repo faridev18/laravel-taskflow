@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\WorkspaceController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,14 +18,6 @@ Route::get("/logout",[AuthController::class,"logout"])->name("logout");
 
 
 
-Route::get("/dashboard",[AuthController::class,"dashboard"])->name('dashboard');
-Route::get("/products",[HomeController::class,"products"])->name('products');
-
-
-Route::get("/categories",[HomeController::class,"categories"])->name('categories');
-Route::get("/addcategory",[HomeController::class,"addcategory"])->name('addcategory');
-Route::post("/savecategorie", [HomeController::class,'savecategorie'])->name('savecategorie');
-Route::get("/categorie/{id}/delete", [HomeController::class,'deletecategorie'])->name('deletecategorie');
-
-Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+Route::get("/my-workspace",[WorkspaceController::class,"myworkspace"])->name("my-workspace");
+Route::get("/create-workspace",[WorkspaceController::class,"createworkspace"])->name("create-workspace");
+Route::post("/save-workspace",[WorkspaceController::class,"saveworkspace"])->name("save-workspace");

@@ -14,11 +14,6 @@ class AuthController extends Controller
         return view("auth.register");
     }
 
-    public function dashboard()
-    {
-        return view("dashboard");
-    }
-
 
     public function saveuser(Request $request)
     {
@@ -41,37 +36,14 @@ class AuthController extends Controller
             'repeat-password.same'     => 'Les mots de passe ne correspondent pas.',
         ]);
 
-        // Methode 1
-
-        // $user = new User;
-
-        // $user->name = $request->name;
-        // $user->email = $request->email;
-        // $user->password = Hash::make($request->password);
-
-        
-        // $query = $user->save();
-
-
-        // Methode 2
-
-        // $query = DB::table('users')->insert([
-        //     'name' => $request->name,
-        //     'email' => $request->email,
-        //     'password' => Hash::make($request->password),
-        //     "created_at" => date('Y-m-d H:i:s')
-        // ]);
-
-        // Methode 3
 
         $query = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
-
        
-        return back()->with('success','You have been successfuly registered');
+        return redirect("login")->with('success','You have been successfuly registered');
 
     }
 
@@ -98,7 +70,7 @@ class AuthController extends Controller
 
         if (auth()->attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/my-workspace');
         }else{
             return back()->with('error','Email ou mot de passe incorrect.');
         }
@@ -118,13 +90,6 @@ class AuthController extends Controller
         // }
 
 
-    }
-
-
-    public function logout()
-    {
-        auth()->logout();
-        return redirect('/login');
     }
 
 
