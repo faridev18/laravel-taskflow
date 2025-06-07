@@ -12,4 +12,10 @@ class Workspace extends Model
         "owner_id",
         "color"
     ];
+
+    public function boards() {
+        return $this->hasMany(Board::class);
+    }
+
+    
 }

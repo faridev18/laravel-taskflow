@@ -34,7 +34,7 @@
                             <img src="https://ui-avatars.com/api/?name=Bob" alt="Membre" class="w-8 h-8 rounded-full border-2 border-white">
                             <div class="w-8 h-8 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center text-xs text-gray-600">+3</div>
                         </div>
-                        <a href="#" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">Ouvrir</a>
+                        <a href="/my-workspace/{{$item->id}}" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">Ouvrir</a>
                     </div>
                 </div>
                 <div class="h-10 {{$item->color}}">

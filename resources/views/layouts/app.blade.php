@@ -15,8 +15,8 @@
                 <h1 class="text-xl font-bold text-indigo-600">TaskFlow</h1>
                 <nav class="hidden md:flex space-x-8">
                     <a href="#" class="text-gray-700 hover:text-indigo-600">Tableau de bord</a>
-                    <a href="#" class="text-gray-700 hover:text-indigo-600">Mes Workspaces</a>
-                    <a href="#" class="text-gray-700 hover:text-indigo-600">Tâches</a>
+                    <a href="/my-workspace" class="text-gray-700 hover:text-indigo-600">Mes Workspaces</a>
+                    {{-- <a href="#" class="text-gray-700 hover:text-indigo-600">Tâches</a> --}}
                 </nav>
             </div>
             <div class="flex items-center space-x-4">
