@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Workspace;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class WorkspaceController extends Controller
@@ -40,6 +41,35 @@ class WorkspaceController extends Controller
         ]);
 
         return redirect('/my-workspace');
+
+    }
+
+    public function workspacemember($id)
+    {
+
+        $workspace = Workspace::with("users")->findOrFail($id);
+        return view("workspacemember")->with("workspace", $workspace);
+    }
+
+    public function savemember(Request $request)
+    {
+        $request->validate(
+            [
+                "email" => "required|email|exists:users,email",
+                "role"  => "required|in:admin,membre",
+            ]
+        );
+
+        $user      = User::where("email", $request->email)->first();
+        $workspace = Workspace::findOrFail($request->workspace_id);
+
+        if ($workspace->users()->where('user_id', $user->id)->exists()) {
+            return back()->withErrors("Cet utilisateur est déja membre de cet workspace");
+        }
+
+        $workspace->users()->attach($user->id, ["role" => $request->role]);
+
+        return back()->with('success', 'Membre ajouté avec succès.');
 
     }
 

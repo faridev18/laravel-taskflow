@@ -28,4 +28,10 @@ Route::post("/save-workspace",[WorkspaceController::class,"saveworkspace"])->nam
 Route::get("/my-workspace/{id}", [BoardController::class, "workspaceboads"])->name("workspaceboads");
 Route::get("/create-board/{id}",[BoardController::class,"createboard"])->name("createboard");
 Route::post("/save-board",[BoardController::class,"saveboard"])->name("saveboard");
+Route::get("/workspace/{id}/delete",[BoardController::class,"deleteboard"])->name("deleteboard");
+
+Route::get("/workspacemember/{id}",[WorkspaceController::class,"workspacemember"])->name("workspacemember");
+Route::post("/savemember",[WorkspaceController::class,"savemember"])->name("savemember");
+
+
 

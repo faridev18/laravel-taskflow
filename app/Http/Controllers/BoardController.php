@@ -5,7 +5,6 @@ use App\Models\Board;
 use App\Models\Workspace;
 use Illuminate\Http\Request;
 
-
 class BoardController extends Controller
 {
     //
@@ -13,8 +12,6 @@ class BoardController extends Controller
     public function workspaceboads($id)
     {
         $workspace = Workspace::where("id", $id)->with('boards')->first();
-
-    
 
         // $boards = Board::where('workspace_id',$id)->get();
 
@@ -41,7 +38,17 @@ class BoardController extends Controller
             "workspace_id" => $request->workspace_id,
         ]);
 
-        return redirect('/my-workspace/'.$request->workspace_id);
+        return redirect('/my-workspace/' . $request->workspace_id);
+
+    }
+
+    public function deleteboard($id)
+    {
+
+        $board = Board::where("id", $id)->first();
+        $board->delete();
+
+        return back();
 
     }
 }

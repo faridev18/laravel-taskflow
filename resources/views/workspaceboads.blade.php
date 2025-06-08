@@ -42,6 +42,13 @@
                             <span class="text-xs text-gray-400">3 listes</span>
                             <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium">Ouvrir →</a>
                         </div>
+                        <div class=" flex justify-end">
+                            <div class="mt-5">
+                                <a onclick="return confirm('Etes vous sur  de vouloir supprimer ce tableau ?')"  href="/workspace/{{$item->id}}/delete">
+                                    <i class="fa fa-trash text-red-500"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
