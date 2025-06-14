@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 use App\Models\Workspace;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NotifyUserMail;
+
 
 class WorkspaceController extends Controller
 {
@@ -13,7 +16,16 @@ class WorkspaceController extends Controller
     {
 
         $workspaces = Workspace::where('owner_id', auth()->user()->id)->get();
-        return view("myworkspace")->with("workspaces", $workspaces);
+
+        $invitedworkspaces = auth()->user()->workspaces()
+                                ->where("owner_id", "!=", auth()->id())
+                                ->with("owner")
+                                ->get();
+
+
+
+
+        return view("myworkspace")->with("workspaces", $workspaces)->with("invitedworkspaces", $invitedworkspaces);
 
     }
 
@@ -68,6 +80,10 @@ class WorkspaceController extends Controller
         }
 
         $workspace->users()->attach($user->id, ["role" => $request->role]);
+
+        // Envoie un mail
+
+        Mail::to($user->email)->send(new NotifyUserMail($user,$workspace,$request->role));
 
         return back()->with('success', 'Membre ajouté avec succès.');
 
