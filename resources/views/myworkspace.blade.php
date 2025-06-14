@@ -29,14 +29,8 @@
                         </div>
                         <div class="mt-4 flex justify-between items-center">
                             <a href="/workspacemember/{{ $item->id }}">
-                                <div class="flex -space-x-2">
-                                    <img src="https://ui-avatars.com/api/?name=Alice" alt="Membre"
-                                        class="w-8 h-8 rounded-full border-2 border-white">
-                                    <img src="https://ui-avatars.com/api/?name=Bob" alt="Membre"
-                                        class="w-8 h-8 rounded-full border-2 border-white">
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center text-xs text-gray-600">
-                                        +3</div>
+                                <div class="text-white bg-blue-500 p-1 rounded text-sm font-medium">
+                                   Membre
                                 </div>
                             </a>
                             <a href="/my-workspace/{{ $item->id }}"

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-gray-50">
     <!-- Header -->
     <header class="bg-white shadow-sm">
@@ -24,14 +26,19 @@
                     <i class="fas fa-bell"></i>
                 </button>
                 <div class="relative">
-                    <img src="https://ui-avatars.com/api/?name=John+Doe" alt="Profil" class="w-8 h-8 rounded-full cursor-pointer">
+                    <img src="https://ui-avatars.com/api/?name=John+Doe" alt="Profil"
+                        class="w-8 h-8 rounded-full cursor-pointer">
                 </div>
+                <a href="/logout" type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    <i class="fas fa-sign-out-alt mr-2"></i> Déconnexion
+                </a>
             </div>
         </div>
     </header>
 
     @yield('content')
 
-   
+
 </body>
+
 </html>

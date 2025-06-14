@@ -30,35 +30,33 @@
             <!-- Membre 1 -->
 
             @foreach ($workspace->users as $item)
-                
-           
-            <div class="grid grid-cols-12 gap-4 px-6 py-4 border-b border-gray-100 hover:bg-gray-50 transition-colors">
-                <div class="col-span-4 flex items-center">
-                    <img src="https://i.pravatar.cc/40?img={{$item->id}}" alt="Avatar" class="h-10 w-10 rounded-full mr-3">
-                    <div>
-                        <p class="font-medium text-gray-900">{{$item->name}}</p>
-                        <p class="text-sm text-gray-500">{{$item->email}}</p>
+                <div class="grid grid-cols-12 gap-4 px-6 py-4 border-b border-gray-100 hover:bg-gray-50 transition-colors">
+                    <div class="col-span-4 flex items-center">
+                        <img src="https://i.pravatar.cc/40?img={{ $item->id }}" alt="Avatar"
+                            class="h-10 w-10 rounded-full mr-3">
+                        <div>
+                            <p class="font-medium text-gray-900">{{ $item->name }}</p>
+                            <p class="text-sm text-gray-500">{{ $item->email }}</p>
+                        </div>
+                    </div>
+                    <div class="col-span-3 flex items-center">
+                        <span
+                            class="px-3 py-1 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">{{ $item->pivot->role }}</span>
+                    </div>
+                    <div class="col-span-3 flex items-center text-sm text-gray-500">
+                        {{ $item->pivot->created_at }}
+                    </div>
+                    <div class="col-span-2 flex justify-end items-center">
+                         <a onclick="return confirm('Êtes-vous sûr de vouloir retirer ce membre ?')" 
+                           href="{{ route('workspace.removeMember', ['workspace' => $workspace->id, 'user' => $item->id]) }}"
+                           class="text-red-600 hover:text-red-800">
+                            <i class="fas fa-user-minus mr-1"></i> Retirer
+                        </a>
                     </div>
                 </div>
-                <div class="col-span-3 flex items-center">
-                    <span class="px-3 py-1 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">{{$item->pivot->role}}</span>
-                </div>
-                <div class="col-span-3 flex items-center text-sm text-gray-500">
-                    {{$item->pivot->created_at}}
-                </div>
-                <div class="col-span-2 flex justify-end items-center">
-                    <button class="text-gray-400 hover:text-gray-600 p-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                            <path
-                                d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
+            @endforeach
 
-             @endforeach
 
-          
         </div>
 
 
@@ -79,7 +77,7 @@
                     <div class="alert alert-danger">
                         <ul class="mb-0">
                             @foreach ($errors->all() as $error)
-                                <li  class="text-red-500 mt-2">{{ $error }}</li>
+                                <li class="text-red-500 mt-2">{{ $error }}</li>
                             @endforeach
                         </ul>
                     </div>

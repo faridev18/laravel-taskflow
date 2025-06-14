@@ -32,6 +32,7 @@ Route::get("/workspace/{id}/delete",[BoardController::class,"deleteboard"])->nam
 
 Route::get("/workspacemember/{id}",[WorkspaceController::class,"workspacemember"])->name("workspacemember");
 Route::post("/savemember",[WorkspaceController::class,"savemember"])->name("savemember");
+Route::get('/workspace/{workspace}/remove-member/{user}', [WorkspaceController::class, 'removeMember'])->name('workspace.removeMember');
 
 
 

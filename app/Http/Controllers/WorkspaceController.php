@@ -1,12 +1,11 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\Models\Workspace;
+use App\Mail\NotifyUserMail;
 use App\Models\User;
+use App\Models\Workspace;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\NotifyUserMail;
-
 
 class WorkspaceController extends Controller
 {
@@ -18,12 +17,9 @@ class WorkspaceController extends Controller
         $workspaces = Workspace::where('owner_id', auth()->user()->id)->get();
 
         $invitedworkspaces = auth()->user()->workspaces()
-                                ->where("owner_id", "!=", auth()->id())
-                                ->with("owner")
-                                ->get();
-
-
-
+            ->where("owner_id", "!=", auth()->id())
+            ->with("owner")
+            ->get();
 
         return view("myworkspace")->with("workspaces", $workspaces)->with("invitedworkspaces", $invitedworkspaces);
 
@@ -83,9 +79,17 @@ class WorkspaceController extends Controller
 
         // Envoie un mail
 
-        Mail::to($user->email)->send(new NotifyUserMail($user,$workspace,$request->role));
+        Mail::to($user->email)->send(new NotifyUserMail($user, $workspace, $request->role));
 
         return back()->with('success', 'Membre ajouté avec succès.');
+
+    }
+
+    public function removeMember(Workspace $workspace, User $user)
+    {
+
+        $workspace->users()->detach($user->id);
+        return back()->with('success', 'Membre retiré avec succès.');
 
     }
 
