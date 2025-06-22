@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\WorkspaceController;
 use App\Http\Controllers\BoardController;
+use App\Http\Controllers\TaskController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,5 +35,9 @@ Route::get("/workspacemember/{id}",[WorkspaceController::class,"workspacemember"
 Route::post("/savemember",[WorkspaceController::class,"savemember"])->name("savemember");
 Route::get('/workspace/{workspace}/remove-member/{user}', [WorkspaceController::class, 'removeMember'])->name('workspace.removeMember');
 
+
+Route::get("/show-task/{id}", [TaskController::class, "showtask"])->name("showtask");
+Route::get("/newtask/{id}", [TaskController::class, "newtask"])->name("newtask");
+Route::post('/save-task', [TaskController::class, 'saveTask'])->name('savetask');
 
 

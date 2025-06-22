@@ -13,7 +13,13 @@ class Board extends Model
 
     public function workspace()
     {
-        return $this->belongTo(Workspace::class);
+        return $this->belongsTo(Workspace::class);
     }
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
+
 
 }

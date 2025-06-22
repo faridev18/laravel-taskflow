@@ -39,8 +39,7 @@
                         </div>
                         {{-- <p class="text-gray-500 text-sm mt-2">Tâches en attente de priorisation</p> --}}
                         <div class="mt-4 flex justify-between items-center">
-                            <span class="text-xs text-gray-400">3 listes</span>
-                            <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium">Ouvrir →</a>
+                            <a href="/show-task/{{$item->id}}" class="text-white w-full text-center py-1 rounded bg-blue-600 text-sm font-medium">Ouvrir →</a>
                         </div>
                         <div class=" flex justify-end">
                             <div class="mt-5">
