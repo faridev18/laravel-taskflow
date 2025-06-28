@@ -39,7 +39,7 @@
             ];
         @endphp
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div x-data="{ open: false, currentTask: null }" x-cloak class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             @foreach ($states as $key => $state)
                 <div class="bg-gray-50 p-4 rounded-lg">
                     <h2 class="font-semibold text-lg mb-4 flex items-center">
@@ -52,14 +52,17 @@
                             <div class="flex justify-between items-start mb-2">
                                 <h3 class="font-medium">{{ $task->title }}</h3>
 
-                                @if ($task->user_id == auth()->id())
+                                @if ($task->user_id == auth()->id() || $board->workspace->owner->id == auth()->id())
                                     <div class="flex space-x-2">
-                                        <button class="text-gray-400 hover:text-gray-600">
+                                        <button @click="open = true; currentTask = {{ json_encode($task) }}"
+                                            class="text-gray-400 hover:text-gray-600">
                                             <i class="fas fa-pencil-alt"></i>
                                         </button>
-                                        <button class="text-gray-400 hover:text-gray-600">
+                                        <a onclick="confirm('Voulez vous supprimer cette tache ?')"
+                                            href="/delete-task/{{ $task->id }}"
+                                            class="text-gray-400 hover:text-gray-600">
                                             <i class="fas fa-trash"></i>
-                                        </button>
+                                        </a>
                                     </div>
                                 @endif
 
@@ -93,7 +96,84 @@
                     @endforelse
                 </div>
             @endforeach
+
+            {{-- Modal --}}
+
+            <div x-show="open" class="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50">
+                <div @click.away="open = false" class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+                    <div class="p-6">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4"
+                            x-text="'Modifier: ' + (currentTask ? currentTask.title : '')"></h3>
+
+                        <form x-bind:action="'/update-tasks/' + (currentTask ? currentTask.id : '')" method="POST">
+                            @csrf
+                            @method('PUT')
+
+                            <div class="mb-4">
+                                <label for="title" class="block text-sm font-medium text-gray-700">Titre</label>
+                                <input type="text" id="title" name="title" x-model="currentTask.title"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                                <textarea id="description" name="description" rows="3" x-model="currentTask.description"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label for="deadline" class="block text-sm font-medium text-gray-700">Échéance</label>
+                                    <input type="date" id="deadline" name="deadline" x-model="currentTask.deadline"
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                </div>
+                                <div>
+                                    <label for="state" class="block text-sm font-medium text-gray-700">Statut</label>
+                                    <select id="state" name="state" x-model="currentTask.state"
+                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                        @foreach ($states as $key => $state)
+                                            <option value="{{ $key }}">{{ $state['label'] }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="assigned_to" class="block text-sm font-medium text-gray-700">Assigné à</label>
+                                <select id="assigned_to" name="assigned_to" x-model="currentTask.assigned_to"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                                    <option value="">Non assigné</option>
+                                    @foreach ($board->workspace->users as $member)
+                                        <option value="{{ $member->id }}">{{ $member->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="flex justify-end space-x-3 pt-2">
+                                <button type="button" @click="open = false"
+                                    class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                                    Annuler
+                                </button>
+                                <button type="submit"
+                                    class="px-4 py-2 border border-transparent rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+                                    Enregistrer
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
         </div>
 
     </div>
+
+
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 @endsection

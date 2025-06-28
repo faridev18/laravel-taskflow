@@ -39,5 +39,7 @@ Route::get('/workspace/{workspace}/remove-member/{user}', [WorkspaceController::
 Route::get("/show-task/{id}", [TaskController::class, "showtask"])->name("showtask");
 Route::get("/newtask/{id}", [TaskController::class, "newtask"])->name("newtask");
 Route::post('/save-task', [TaskController::class, 'saveTask'])->name('savetask');
+Route::get('/delete-task/{id}', [TaskController::class, 'deleteTask'])->name('deletetask');
+Route::put('/update-tasks/{task}', [TaskController::class, 'updateTask'])->name('updatetask');
 
 
