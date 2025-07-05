@@ -18,6 +18,7 @@
                 <nav class="hidden md:flex space-x-8">
                     <a href="#" class="text-gray-700 hover:text-indigo-600">Tableau de bord</a>
                     <a href="/my-workspace" class="text-gray-700 hover:text-indigo-600">Mes Workspaces</a>
+                    <a href="/pricing" class="text-gray-700 hover:text-indigo-600">Tarifs</a>
                     {{-- <a href="#" class="text-gray-700 hover:text-indigo-600">Tâches</a> --}}
                 </nav>
             </div>

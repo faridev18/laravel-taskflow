@@ -13,6 +13,13 @@
             </a>
         </div>
 
+        @if (session('error'))
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                {{ session('error') }}
+            </div>
+        @endif
+
+
         <!-- Workspace Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Workspace Card 1 -->
@@ -30,7 +37,7 @@
                         <div class="mt-4 flex justify-between items-center">
                             <a href="/workspacemember/{{ $item->id }}">
                                 <div class="text-white bg-blue-500 p-1 rounded text-sm font-medium">
-                                   Membre
+                                    Membre
                                 </div>
                             </a>
                             <a href="/my-workspace/{{ $item->id }}"

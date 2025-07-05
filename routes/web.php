@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\WorkspaceController;
 use App\Http\Controllers\BoardController;
+use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\TaskController;
 
 Route::get('/', function () {
@@ -41,5 +42,9 @@ Route::get("/newtask/{id}", [TaskController::class, "newtask"])->name("newtask")
 Route::post('/save-task', [TaskController::class, 'saveTask'])->name('savetask');
 Route::get('/delete-task/{id}', [TaskController::class, 'deleteTask'])->name('deletetask');
 Route::put('/update-tasks/{task}', [TaskController::class, 'updateTask'])->name('updatetask');
+
+
+Route::get('/pricing', [SubscriptionController::class, 'pricing'])->name('pricing');
+Route::get('/subscribe/{plan}', [SubscriptionController::class, 'subscribe'])->name('subscribe');
 
 

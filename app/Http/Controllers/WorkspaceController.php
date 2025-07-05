@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Mail\NotifyUserMail;
 use App\Models\User;
 use App\Models\Workspace;
+use App\Models\Subscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -27,7 +28,33 @@ class WorkspaceController extends Controller
 
     public function createworkspace()
     {
-        return view("createworkspace");
+
+        $workspacesNumber = Workspace::where('owner_id', auth()->user()->id)->count();
+
+        $subscription = Subscription::where("user_id", auth()->user()->id)
+                                ->where('status', 'active')
+                                ->latest()
+                                ->first();
+
+        $plan = $subscription ? $subscription->plan : 'freemium';
+
+
+        $limits =[
+            "freemium" => 1,
+            "premium" => 5,
+            "business" => PHP_INT_MAX
+        ];
+
+        $max = $limits[$plan] ?? 1;
+
+
+        if($workspacesNumber >= $max){
+             return redirect()->route('my-workspace')
+                         ->with('error', "Vous avez atteint la limite de votre plan ($plan). Veuillez mettre à niveau pour créer plus de workspaces.");
+        }
+
+
+        return view("createworkspace")->with("workspacesNumber", $workspacesNumber);
     }
 
     public function saveworkspace(Request $request)

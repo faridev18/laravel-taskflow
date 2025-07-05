@@ -40,7 +40,7 @@
                                 'bg-purple-500' => 'Violet',
                             ];
                         @endphp
-                      
+
 
                         @foreach ($colors as $class => $label)
                             <div class="flex items-center">
@@ -73,5 +73,77 @@
                 </div>
             </form>
         </div>
+
+       
+
+
+
+
+        <!-- Section : Plans de souscription -->
+        <div class="py-10">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Obtenez plus de Workspaces</h2>
+            <p class="text-gray-600 mb-6">Choisissez un plan selon vos besoins.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Plan Freemium -->
+                <div class="border rounded-lg p-6 shadow-sm bg-white">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Freemium</h3>
+                    <p class="text-gray-600 mb-4">Idéal pour les utilisateurs individuels</p>
+                    <ul class="text-sm text-gray-700 mb-4">
+                        <li>✅ 1 Workspace</li>
+                        <li>🔓 Accès de base</li>
+                        <li>📦 Gratuit</li>
+                    </ul>
+                    <a href="{{ route('subscribe', ['plan' => 'freemium']) }}"
+                        class="inline-block bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 transition">
+                        Choisir Freemium
+                    </a>
+                </div>
+
+                <!-- Plan Premium -->
+                <div class="border rounded-lg p-6 shadow-md bg-white">
+                    <h3 class="text-xl font-semibold text-indigo-600 mb-2">Premium</h3>
+                    <p class="text-gray-600 mb-4">Parfait pour les petites équipes</p>
+                    <ul class="text-sm text-gray-700 mb-4">
+                        <li>✅ 5 Workspaces</li>
+                        <li>📁 Fonctionnalités avancées</li>
+                        <li>💳 9,99 €/mois</li>
+                    </ul>
+                    <a href="{{ route('subscribe', ['plan' => 'premium']) }}"
+                        class="inline-block bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition">
+                        Passer à Premium
+                    </a>
+                </div>
+
+                <!-- Plan Business -->
+                <div class="border rounded-lg p-6 shadow-lg bg-white">
+                    <h3 class="text-xl font-semibold text-green-600 mb-2">Business</h3>
+                    <p class="text-gray-600 mb-4">Pour les entreprises ambitieuses</p>
+                    <ul class="text-sm text-gray-700 mb-4">
+                        <li>✅ Workspaces illimités</li>
+                        <li>📊 Statistiques détaillées</li>
+                        <li>🔒 Support prioritaire</li>
+                        <li>💳 29,99 €/mois</li>
+                    </ul>
+                    <a href="{{ route('subscribe', ['plan' => 'business']) }}"
+                        class="inline-block bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+                        Choisir Business
+                    </a>
+                </div>
+            </div>
+
+            <!-- Espace utilisateur -->
+            <div class="mt-10 text-center">
+                <p class="text-gray-700">Vous avez actuellement accès à <strong>{{ $workspacesNumber }}</strong>
+                    workspace{{ $workspacesNumber > 1 ? 's' : '' }}.</p>
+            </div>
+        </div>
+
+
+
+
+
+
+
     </main>
 @endsection
