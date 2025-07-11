@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subscription;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class SubscriptionController extends Controller
@@ -21,6 +23,8 @@ class SubscriptionController extends Controller
 
     public function subscribe($plan)
     {
+        session()->put('selected_plan', $plan);
+
         $plans = [
             'freemium' => [
                 'title'      => 'Freemium',
@@ -30,13 +34,13 @@ class SubscriptionController extends Controller
             ],
             'premium'  => [
                 'title'      => 'Premium',
-                'price'      => 9.99,
+                'price'      => 10000,
                 'workspaces' => 5,
                 'features'   => ['Fonctionnalités avancées'],
             ],
             'business' => [
                 'title'      => 'Business',
-                'price'      => 29.99,
+                'price'      => 20000,
                 'workspaces' => 'Illimité',
                 'features'   => ['Statistiques détaillées', 'Support prioritaire'],
             ],
@@ -46,6 +50,24 @@ class SubscriptionController extends Controller
             'planKey' => $plan,
             'plan'    => $plans[$plan],
         ]);
+
+    }
+
+    public function callback(Request $request)
+    {
+        $user          = auth()->user();
+        $transactionId = $request->input('transaction_id');
+        $plan          = session('selected_plan'); // Par défaut
+
+        Subscription::create([
+            'user_id'         => $user->id,
+            'stripe_id'       => $transactionId,
+            'plan'            => $plan,
+            'status'          => 'active',
+            'date_expiration' => Carbon::now()->addMonth(), // expire dans 1 mois
+        ]);
+
+        return redirect()->route('pricing')->with('success', 'Abonnement activé avec succès.');
 
     }
 }

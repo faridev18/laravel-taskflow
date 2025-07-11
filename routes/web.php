@@ -46,5 +46,6 @@ Route::put('/update-tasks/{task}', [TaskController::class, 'updateTask'])->name(
 
 Route::get('/pricing', [SubscriptionController::class, 'pricing'])->name('pricing');
 Route::get('/subscribe/{plan}', [SubscriptionController::class, 'subscribe'])->name('subscribe');
+Route::get('/kkiapay/callback', [SubscriptionController::class, 'callback'])->name('kkiapay.callback');
 
 
