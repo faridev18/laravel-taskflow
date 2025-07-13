@@ -50,7 +50,9 @@ class TaskController extends Controller
         $user= User::where("id", $validated['assigned_to'])->first();
 
 
-         Mail::to($user->email)->send(new NotifyTaskMail($user, $task));
+        if($user){
+             Mail::to($user->email)->send(new NotifyTaskMail($user, $task));
+        }
 
 
 
@@ -72,7 +74,7 @@ class TaskController extends Controller
             'title'       => 'required|string|max:255',
             'description' => 'nullable|string',
             'deadline'    => 'nullable|date',
-            'state'       => 'required|in:todo,in_progress,blocked,done',
+            'state'       => 'required|in:todo,in_progess,blocked,done',
             'assigned_to' => 'nullable|exists:users,id',
         ]);
 
